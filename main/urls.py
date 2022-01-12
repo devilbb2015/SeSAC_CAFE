@@ -22,6 +22,7 @@ import main.views
 urlpatterns = [
     path('', main.views.index, name='index'),
 
+
 ]
 
 
