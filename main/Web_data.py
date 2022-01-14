@@ -1,5 +1,4 @@
 import pandas as pd
-import Functions
 
 #웹 서비스 구현을 위한 db저장 전용 데이터셋 생성
 
@@ -9,6 +8,8 @@ import Functions
 # df_area = pd.read_csv('./after/area_data.csv', encoding='cp949')
 # df_culture = pd.read_csv('./after/culture_data.csv', encoding='cp949')
 # df_main = pd.read_csv('./after/main_data.csv.csv', encoding='cp949')
+from main import Functions
+
 
 def near_cafe_db(long, lat):
     # near_cafe

@@ -1,8 +1,13 @@
 import csv
 
+from django.db import connection
 from django.shortcuts import render
 
+
 # Create your views here.
+from main.models import CafeCount
+
+
 def index(request):
     year = range(1990, 2022)
     data = {
@@ -26,4 +31,19 @@ def chart2(request):
 
     print(result)
     return render(request, "main/chart2.html", {'list': result})
+
+
+def chart(request):
+    try:
+        queryset = CafeCount.objects.all()
+        datas = queryset.values()
+
+        result = []
+        for list in datas:
+            result.append(list)
+
+    except:
+        print("쿼리 실행 실패")
+
+    return render(request, 'main/chart.html', {"list": result})
 
