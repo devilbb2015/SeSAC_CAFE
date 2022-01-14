@@ -26,3 +26,4 @@ def chart2(request):
 
     print(result)
     return render(request, "main/chart2.html", {'list': result})
+
