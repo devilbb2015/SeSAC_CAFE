@@ -1,24 +1,43 @@
 import csv
 
 from django.db import connection
+from django.http import JsonResponse
+from django.views.generic import View
 from django.shortcuts import render
+import folium
+
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
 # Create your views here.
-from main.models import CafeCount
+from main.models import CafeCount, CafeStatus
 
 
 def index(request):
-    year = range(1990, 2022)
-    data = {
-        'date': year,
-        'in_count': [29, 47, 96, 168, 69, 49, 57, 45, 21, 60, 58, 53, 37, 38, 26, 40, 30, 57, 49, 100, 162, 159, 151,
-                     161, 207, 195, 182, 222, 209, 219, 221, 212],
-        'out_count': [19, 18, 39, 54, 93, 102, 96, 107, 70, 89, 81, 55, 67, 41, 58, 50, 31, 44, 31, 19, 53, 45, 58, 77,
-                      78, 108, 130, 143, 188, 154, 181, 137]
-    }
-    return render(request, "main/index.html", data)
+    qs = CafeStatus.objects.all()
+    datas = qs.values()
+    lat = []
+    lng = []
+    gu = []
+    cafe_name = []
+    print(datas[0]['cafe_name'])
 
+    for i in datas:
+        if i['business'] == 1:
+            lat.append(i['lat'])
+            lng.append(i['lng'])
+            gu.append(i['gu'])
+            cafe_name.append(i['cafe_name'])
+
+    context = {
+        "gu": gu,
+        "lat": lat,
+        "lng": lng,
+        "cafe_name": cafe_name,
+    }
+
+    return render(request, 'main/index.html', context)
 
 def chart2(request):
     print('=================== chart2호출됨.')
@@ -42,8 +61,39 @@ def chart(request):
         for list in datas:
             result.append(list)
 
+        print(result)
+
     except:
         print("쿼리 실행 실패")
 
     return render(request, 'main/chart.html', {"list": result})
+
+
+class chartData(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request):
+        qs = CafeCount.objects.all()
+        datas = qs.values()
+        # print(datas)
+        labels = []
+        sum_count = []
+        for i in datas:
+            labels.append(i['status_year'])
+            sum_count.append(i['sum_count'])
+
+        data = {
+            "labels": labels,
+            "defaultData": sum_count,
+        }
+        return Response(data)
+
+
+
+#
+# def result_detail(request):
+#     context = {}
+#     return render(request, 'chartapp/chart.html', context)
+
 

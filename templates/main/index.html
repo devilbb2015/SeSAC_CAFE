@@ -16,132 +16,276 @@
           rel="stylesheet" type="text/css"/>
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/static/styles.css" rel="stylesheet"/>
+
 </head>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="/static/canvasjs.min.js"></script>
+{#<script src="/static/includeHTML.js"></script>#}
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+{#<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c410ba3296685ca0ce9d4fd1d0e596ab"></script>#}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+
 <script type="text/javascript">
-    google.charts.load('current', {'packages': ['bar']});
-    google.charts.setOnLoadCallback(drawChart);
+    var lat = {{ lat }};
+    var lng = {{ lng }};
+    var gu = {{ gu|safe }};
+    var cafe_name = {{ cafe_name|safe }};
 
-    date = {{ year }}
-        in_counts = {{ in_count }}
-            out_counts =
-    {{ out_count }}
+    var data1 = []
+    var data2 = []
+    var data3 = []
+    var data4 = []
+    var data5 = []
+    var data6 = []
+    var data7 = []
+    var data8 = []
+    var data9 = []
+    var data10 = []
+    var data11 = []
+    var data12 = []
+    var data13 = []
+    var data14 = []
+    var data15 = []
+    var data16 = []
+    var data17 = []
+    var data18 = []
+    var data19 = []
+    var data20 = []
+    var data21 = []
+    var data22 = []
+    var data23 = []
+    var data24 = []
+    var data25 = []
 
-    var year = [];
-    var in_count = [];
-    var out_count = [];
+    var rgb = ['rgb(186, 145, 38)', 'rgb(238, 89, 244)','rgb(246, 106, 165)',
+        'rgb(148, 155, 33)', 'rgb(171, 154, 42)','rgb(166, 129, 243)','rgb(126, 162, 35)',
+        'rgb(45, 170, 154)','rgb(207, 135, 38)','rgb(126, 141, 243)','rgb(200, 112, 243)',
+        'rgb(53, 164, 216)','rgb(71, 158, 244)','rgb(39, 174, 73)','rgb(247, 113, 92)',
+        'rgb(51, 171, 169)','rgb(244, 88, 216)','rgb(244, 157, 247)','rgb(46, 172, 139)',
+        'rgb(41, 162, 193)','rgb(52, 170, 182)','rgb(246, 100, 190)','rgb(47, 174, 120)',
+        'rgb(233, 126, 45)','rgb(87, 168, 33)']
+    var gu_name = ['강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구',
+        '도봉구','동대문구','동작구','마포구','서대문구','서초구','성동구','성북구','송파구','양천구',
+        '영등포구','용산구','은평구','종로구','중구','중랑구']
 
-    {% for one in date %}
-        year.push('{{ one }}')
-    {% endfor %}
-    console.log(year)
-    console.log(year.length)
+    var gu_count = []
+    for (var i=0; i< gu_name.length; i++) {
+        gu_count.push(gu.filter(element => gu_name[i] === element).length)
+    }
+    console.log(gu_count)
 
-    for (var i = 0; i < year.length; i++) {
-        in_count.push(in_counts[i])
-        out_count.push(out_counts[i])
+    for (var i = 0; i < lat.length; i++) {
+        if (gu[i] == gu_name[0]) {
+            data1.push([lng[i], lat[i]])
+        } else if (gu[i] == gu_name[1]) {
+            data2.push([lng[i], lat[i]])
+        } else if (gu[i] == "강북구") {
+            data3.push([lng[i], lat[i]])
+        } else if (gu[i] == "강서구") {
+            data4.push([lng[i], lat[i]])
+        } else if (gu[i] == "관악구") {
+            data5.push([lng[i], lat[i]])
+        } else if (gu[i] == "광진구") {
+            data6.push([lng[i], lat[i]])
+        } else if (gu[i] == "구로구") {
+            data7.push([lng[i], lat[i]])
+        } else if (gu[i] == "금천구") {
+            data8.push([lng[i], lat[i]])
+        } else if (gu[i] == "노원구") {
+            data9.push([lng[i], lat[i]])
+        } else if (gu[i] == "도봉구") {
+            data10.push([lng[i], lat[i]])
+        } else if (gu[i] == "동대문구") {
+            data11.push([lng[i], lat[i]])
+        } else if (gu[i] == "동작구") {
+            data12.push([lng[i], lat[i]])
+        } else if (gu[i] == "마포구") {
+            data13.push([lng[i], lat[i]])
+        } else if (gu[i] == "서대문구") {
+            data14.push([lng[i], lat[i]])
+        } else if (gu[i] == "서초구") {
+            data15.push([lng[i], lat[i]])
+        } else if (gu[i] == "성동구") {
+            data16.push([lng[i], lat[i]])
+        } else if (gu[i] == "성북구") {
+            data17.push([lng[i], lat[i]])
+        } else if (gu[i] == "송파구") {
+            data18.push([lng[i], lat[i]])
+        } else if (gu[i] == "양천구") {
+            data19.push([lng[i], lat[i]])
+        } else if (gu[i] == "영등포구") {
+            data20.push([lng[i], lat[i]])
+        } else if (gu[i] == "용산구") {
+            data21.push([lng[i], lat[i]])
+        } else if (gu[i] == "은평구") {
+            data22.push([lng[i], lat[i]])
+        } else if (gu[i] == "종로구") {
+            data23.push([lng[i], lat[i]])
+        } else if (gu[i] == "중구") {
+            data24.push([lng[i], lat[i]])
+        } else if (gu[i] == "중랑구") {
+            data25.push([lng[i], lat[i]])
+        }
+
+    }
+    console.log(data1)
+    var data = {
+        datasets: [{
+            label: gu_name[0],
+            data: data1,
+            backgroundColor: rgb[0]},
+        {
+            label: gu_name[1],
+            data: data2,
+            backgroundColor: rgb[1]},
+            {
+            label: gu_name[2],
+            data: data3,
+            backgroundColor: rgb[2]},
+            {
+            label: gu_name[3],
+            data: data4,
+            backgroundColor: rgb[3]},
+            {
+            label: gu_name[4],
+            data: data5,
+            backgroundColor: rgb[4]},
+            {
+            label: gu_name[5],
+            data: data6,
+            backgroundColor: rgb[5]},
+            {
+            label: gu_name[6],
+            data: data7,
+            backgroundColor: rgb[6]},
+            {
+            label: gu_name[7],
+            data: data8,
+            backgroundColor: rgb[7]},
+            {
+            label: gu_name[8],
+            data: data9,
+            backgroundColor: rgb[8]},
+            {
+            label: gu_name[9],
+            data: data10,
+            backgroundColor: rgb[9]},
+            {
+            label: gu_name[10],
+            data: data11,
+            backgroundColor: rgb[10]},
+            {
+            label: gu_name[11],
+            data: data12,
+            backgroundColor: rgb[11]},
+            {
+            label: gu_name[12],
+            data: data13,
+            backgroundColor: rgb[12]},
+            {
+            label: gu_name[13],
+            data: data14,
+            backgroundColor: rgb[13]},
+            {
+            label: gu_name[14],
+            data: data15,
+            backgroundColor: rgb[14]},
+            {
+            label: gu_name[15],
+            data: data16,
+            backgroundColor: rgb[15]},
+            {
+            label: gu_name[16],
+            data: data17,
+            backgroundColor: rgb[16]},
+            {
+            label: gu_name[17],
+            data: data18,
+            backgroundColor: rgb[17]},
+            {
+            label: gu_name[18],
+            data: data19,
+            backgroundColor: rgb[18]},
+            {
+            label: gu_name[19],
+            data: data20,
+            backgroundColor: rgb[19]},
+            {
+            label: gu_name[20],
+            data: data21,
+            backgroundColor: rgb[20]},
+            {
+            label: gu_name[21],
+            data: data22,
+            backgroundColor: rgb[21]},
+            {
+            label: gu_name[22],
+            data: data23,
+            backgroundColor: rgb[22]},
+            {
+            label: gu_name[23],
+            data: data24,
+            backgroundColor: rgb[23]},
+            {
+            label: gu_name[24],
+            data: data25,
+            backgroundColor: rgb[24]},
+
+        ],
+    };
+
+    var data_gu_count = {
+        labels: gu_name,
+        datasets: [{
+            label: '구별 오픈 카페 수',
+            data: gu_count,
+            backgroundColor: rgb
+        }]
     }
 
-    console.log(in_count)
-    console.log(out_count)
-
-
-    function drawChart() {
-        var datas = [['year', 'In_count', 'Out_count']]
-        for (var j = 0; j < year.length; j++) {
-            datas.push([year[j], in_count[j], out_count[j]])
-        }
-        var data = google.visualization.arrayToDataTable(datas);
-        console.log(data)
-
-        var options = {
-            chart: {
-                title: 'Cafe Open Status',
-                subtitle: '',
+    $(function () {
+        var ctx = document.getElementById('myChart');
+        var ctx2 = document.getElementById('myChart2');
+        var ctx3 = document.getElementById('myChart3');
+        var mychart = new Chart(ctx, {
+            type: 'scatter',
+            data: data,
+            options: {
+                datasets: {
+                    scatter: {
+                        pointRadius: 2.5
+                    }
+                },
+                animation: false,
+                tooltip: false,
             }
-        };
+        })
+        var mychart2 = new Chart(ctx2, {
+            type: 'bar',
+            data: data_gu_count,
+            options: {
 
-        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-    }
-
-    google.charts.load('current', {'packages': ['line']});
-    google.charts.setOnLoadCallback(drawChart2);
-
-    function drawChart2() {
-        var datas = [['year', 'In_count', 'Out_count']]
-        for (var j = 0; j < year.length; j++) {
-            datas.push([year[j], in_count[j], out_count[j]])
-        }
-        var data = google.visualization.arrayToDataTable(datas);
-        console.log(data)
-
-        var options = {
-            chart: {
-                title: 'Cafe Open Status',
-                subtitle: '',
             }
-        };
-
-        var chart2 = new google.charts.Line(document.getElementById('columnchart_material2'));
-
-        chart2.draw(data, google.charts.Line.convertOptions(options));
-    }
-
-    google.charts.load('current', {'packages': ['table']});
-    google.charts.setOnLoadCallback(drawTable);
-
-    function drawTable() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Year');
-        data.addColumn('number', 'Open');
-        data.addColumn('number', 'Close');
-        datas = []
-
-        for (var j = 0; j < year.length; j++) {
-            datas.push([year[j], in_count[j], out_count[j]])
-        }
-        console.log(datas)
-        data.addRows(datas)
-
-        var table = new google.visualization.Table(document.getElementById('table_div'));
-
-        table.draw(data, {showRowNumber: true, width: 200, height: '100%'});
-    }
-
-    google.charts.load('current', {
-        'packages': ['map'],
-        'mapsApiKey': 'AIzaSyA8xeL4urGef52RBv-5blyg-PjI7Uh9Uf0'
-    });
-    google.charts.setOnLoadCallback(drawMap);
-
-    function drawMap() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Address');
-        data.addColumn('string', 'Location');
-
-        data.addRows([
-            ['서울특별시 영등포구 문래동 선유로9길 30', '청년취업사관학교 영등포캠퍼스']
-        ]);
-        var options = {
-            mapType: 'styledMap',
-            zoomLevel: 14,
-            showTooltip: true,
-            showInfoWindow: true,
-            useMapTypeControl: false,
-            // User will only be able to view/select custom styled maps.
-            maps: {
-                styledMap: {
-                    name: 'Styled Map',
+        })
+        var mychart3 = new Chart(ctx3, {
+            type: 'doughnut',
+            data: data_gu_count,
+            options: {
+                elements: {
+                    center: {
+                        text: 'Cafe',
+                        color: '#FF6384', // Default is #000000
+                        fontStyle: 'Arial', // Default is Arial
+                        sidePadding: 20, // Default is 20 (as a percentage)
+                        minFontSize: 20, // Default is 20 (in px), set to false and text will not wrap.
+                        lineHeight: 25 // Default is 25 (in px), used for when text wraps
+                    }
                 }
-
             }
-        };
-        var map = new google.visualization.Map(document.getElementById('map_div'));
+        })
+    })
 
-        map.draw(data, options);
-    }
+
 </script>
 <body>
 <!-- Navigation-->
@@ -171,27 +315,37 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="site-heading">
-                    <h1>CAFE STATUS</h1>
-                    <span class="subheading">SSAC 3기 Project 1조</span>
+                    <h1>DO YOU WANT<br> TO START<br> A BUSINESS?</h1>
+                    {#                    <span class="subheading">SSAC Project</span>#}
                 </div>
             </div>
         </div>
     </div>
 </header>
 <!-- Main Content-->
-<div>
-    <div id="columnchart_material" style="width: 1200px; height: 600px;"></div>
-    <div id="columnchart_material2" style="width: 1200px; height: 600px;"></div>
-    <div id="table_div" style="width: 100%; height: 100%;"></div><br>
-    <div id="map_div" style="width: 800px; height: 300px;"></div>
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-xl-12">
+        <div class="col-md-10 col-lg-10 col-xl-10">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+    <div class="col-md-12 col-lg-12 col-xl-12">
+        <div class="col-md-6 col-lg-6 col-xl-6">
+            <canvas id="myChart2"></canvas>
+        </div>
+        <div class="col-md-6 col-lg-6 col-xl-6">
+            <canvas id="myChart3"></canvas>
+        </div>
+    </div>
 </div>
 
 <!-- Footer-->
+{#<footer include-html="main/footer.html"></footer>#}
 <footer class="border-top">
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-                <div class="small text-center text-muted fst-italic">Copyright &copy; SSAC 3기 Project 2021</div>
+        <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="small text-center text-muted fst-italic">Copyright &copy; SSAC Project 2022</div>
             </div>
         </div>
     </div>
@@ -200,5 +354,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 <script src="/static/scripts.js"></script>
+
 </body>
 </html>
