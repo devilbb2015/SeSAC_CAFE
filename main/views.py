@@ -21,7 +21,6 @@ def index(request):
     lng = []
     gu = []
     cafe_name = []
-    print(datas[0]['cafe_name'])
 
     for i in datas:
         if i['business'] == 1:

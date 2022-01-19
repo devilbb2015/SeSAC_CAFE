@@ -82,5 +82,3 @@ def cal_distance(x1,y1,x2,y2):
 
     distance = haversine(standard, object) * 1000
     return distance
-
-
