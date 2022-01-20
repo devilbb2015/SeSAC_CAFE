@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {%  load static %}
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Clean Blog - Start Bootstrap Theme</title>
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+    <title>SEOUL_CAFE</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}"/>
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
@@ -15,18 +16,19 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
           rel="stylesheet" type="text/css"/>
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="/static/styles.css" rel="stylesheet"/>
+    <link href="{% static 'styles.css' %}" rel="stylesheet"/>
 
 </head>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 {#<script src="/static/canvasjs.min.js"></script>#}
 {#<script src="/static/includeHTML.js"></script>#}
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+{#<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>#}
 {#<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c410ba3296685ca0ce9d4fd1d0e596ab"></script>#}
+{#<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.0/dist/Chart.min.js"></script>#}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
-<script src="/static/chartjs-plugin-doughnutlabel.js"></script>
-{#<script src="/static/chartjs-plugin-datalabels.min.js"></script>#}
-
+{#<script src="{% static 'chartjs-plugin-doughnutlabel.js' %}"></script>#}
+{#<script src="{% static  'chartjs-plugin-datalabels.min.js'%}"></script>#}
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
 <script type="text/javascript">
     var lat = {{ lat }};
@@ -70,12 +72,6 @@
     var gu_name = ['강남구','강동구','강북구','강서구','관악구','광진구','구로구','금천구','노원구',
         '도봉구','동대문구','동작구','마포구','서대문구','서초구','성동구','성북구','송파구','양천구',
         '영등포구','용산구','은평구','종로구','중구','중랑구']
-
-    var gu_count = []
-    for (var i=0; i< gu_name.length; i++) {
-        gu_count.push(gu.filter(element => gu_name[i] === element).length)
-    }
-    console.log(gu_count)
 
     for (var i = 0; i < lat.length; i++) {
         if (gu[i] == gu_name[0]) {
@@ -133,7 +129,7 @@
     }
 
     {#console.log(data1)#}
-    var data = {
+    var data_scatter = {
         datasets: [{
             label: gu_name[0],
             data: data1,
@@ -263,22 +259,12 @@
         ],
     };
 
-    var data_gu_count = {
-        labels: gu_name,
-        datasets: [{
-            label: '오픈 카페 수',
-            data: gu_count,
-            backgroundColor: rgb
-        }]
-    }
-
     $(function () {
         var ctx = document.getElementById('myChart');
-        var ctx2 = document.getElementById('myChart2');
-        var ctx3 = document.getElementById('myChart3');
+
         var mychart = new Chart(ctx, {
             type: 'scatter',
-            data: data,
+            data: data_scatter,
             options: {
                 datasets: {
                     scatter: {
@@ -289,58 +275,6 @@
                 tooltip: false,
             }
         })
-        var mychart2 = new Chart(ctx2, {
-            type: 'bar',
-            data: data_gu_count,
-            options: {
-
-            }
-        })
-
-        var getTotal = function (mychart3) {
-            var sum = mychart3.config.data.datasets[0].data.reduce((a, b) => a + b, 0);
-            return `${sum}`;
-
-        }
-
-        var myChart3 = new Chart(ctx3, {
-            type: 'doughnut',
-            data: data_gu_count,
-            options: {
-                responsive: true,
-                legend: {
-                    display: false,
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    fontSize: 20,
-                    text: 'Calculated value'
-                },
-                animation: {
-                    animateScale: true,
-                    animateRotate: true
-                },
-                plugins: {
-                    doughnutlabel: {
-                        labels: [
-                            {
-                                text: getTotal,
-                                font: {
-                                    size: '60',
-                                    family: 'Arial, Helvetica, sans-serif',
-                                    style: 'italic',
-                                    weight: 'bold'
-                                },
-                                color: '#bc2c1a'
-                            }
-                        ]
-                    }
-                }
-            }
-        });
-
-
     })
 
 
@@ -357,7 +291,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="main/chart">카페현황</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="main">카페현황</a></li>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">창업예측</a></li>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">향후예측</a></li>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">상권분석</a></li>
@@ -381,18 +315,12 @@
     </div>
 </header>
 <!-- Main Content-->
+
 <div class="container row">
-    <div class="col-md-12 col-lg-12 col-xl-12 justify-content-center">
-        <div class="col-md-10 col-lg-10 col-xl-10">
+    <div class="col-md-12 col-lg-12 col-xl-12 ">
+        <div class="col-md-10 col-lg-10 col-xl-10 ">
             <canvas id="myChart"></canvas>
-        </div>
-    </div>
-    <div class="col-md-12 col-lg-12 col-xl-12">
-        <div class="col-md-6 col-lg-6 col-xl-6">
-            <canvas id="myChart2"></canvas>
-        </div>>
-        <div class="col-md-6 col-lg-6 col-xl-6">
-            <canvas id="myChart3"></canvas>
+            <button id="guCount" class="btn btn-primary text-uppercase" onClick="location.href='/main/guCount'">BUTTON</button>
         </div>
     </div>
 </div>

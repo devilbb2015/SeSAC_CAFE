@@ -21,8 +21,9 @@ import main.views
 ## http://127.0.0.1:8000/main/
 urlpatterns = [
     path('', main.views.index, name='index'),
-    path('/chart', main.views.chart, name='chart'),
+    path('/guCount', main.views.guCount, name='fuCount'),
 
+    path('/chart', main.views.chart, name='chart'),
     path('/api/chart1/data', main.views.chartData.as_view(), name="chartData"),
 
     # path('/result', main.views.result_detail, name='result_detail'),

@@ -38,6 +38,24 @@ def index(request):
 
     return render(request, 'main/index.html', context)
 
+def guCount(request):
+    qs = CafeStatus.objects.all()
+    datas = qs.values()
+    gu = []
+    cafe_name = []
+
+    for i in datas:
+        if i['business'] == 1:
+            gu.append(i['gu'])
+            cafe_name.append(i['cafe_name'])
+
+    context = {
+        "gu": gu,
+        "cafe_name": cafe_name,
+    }
+
+    return render(request, 'main/gu_count.html', context)
+
 def chart2(request):
     print('=================== chart2호출됨.')
     result = []
