@@ -22,6 +22,7 @@ import main.views
 urlpatterns = [
     path('', main.views.index, name='index'),
     path('/guCount', main.views.guCount, name='fuCount'),
+    # path('/footer', main.views.footer, name='footer'),
 
     path('/chart', main.views.chart, name='chart'),
     path('/api/chart1/data', main.views.chartData.as_view(), name="chartData"),

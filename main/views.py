@@ -1,7 +1,8 @@
 import csv
 
 from django.db import connection
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+from django.template import loader
 from django.views.generic import View
 from django.shortcuts import render
 import folium
@@ -38,20 +39,32 @@ def index(request):
 
     return render(request, 'main/index.html', context)
 
+# def footer(request):
+#     template = loader.get_template('/main/footer.html')
+#
+#     return HttpResponse(template)
+
 def guCount(request):
     qs = CafeStatus.objects.all()
     datas = qs.values()
+    qs2 = CafeStatus.objects.filter(franchise__lt=2)
+    datas2 = qs2.values()
     gu = []
     cafe_name = []
+    franchise = []
 
     for i in datas:
         if i['business'] == 1:
             gu.append(i['gu'])
             cafe_name.append(i['cafe_name'])
 
+    for i in datas2:
+        franchise.append(i['gu'])
+
     context = {
         "gu": gu,
         "cafe_name": cafe_name,
+        "franchise": franchise,
     }
 
     return render(request, 'main/gu_count.html', context)
