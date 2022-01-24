@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'main.apps.MainConfig',
+    'sign.apps.SignConfig',
+    'board.apps.BoardConfig',
 ]
 
 MIDDLEWARE = [

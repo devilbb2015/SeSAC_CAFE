@@ -23,8 +23,7 @@ import main.views
 urlpatterns = [
     path('', main.views.index, name='index'),
     path('/guCount', main.views.guCount, name='guCount'),
-    path('/signin', main.views.signin, name='signin'),
-    path('/board', main.views.board, name='board'),
+
 
 
     path('/chart', main.views.chart, name='chart'),

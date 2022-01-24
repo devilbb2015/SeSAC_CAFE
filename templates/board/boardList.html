@@ -26,10 +26,25 @@
 {#<script src="{% static 'chartjs-plugin-doughnutlabel.js' %}"></script>#}
 {#<script src="{% static  'chartjs-plugin-datalabels.min.js'%}"></script>#}
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-
 <script type="text/javascript">
-
+    $(function() {
+        var no = {{ id }}
+        var content = {{ content|safe }}
+        var writer = {{ writer|safe }}
+        console.log(no)
+        console.log(content)
+        console.log(writer)
+    })
 </script>
+
+<style>
+    .tb {
+        margin-top: 1rem;
+    }
+    td {
+        text-align: center;
+    }
+</style>
 <body>
 <!-- Navigation-->
 {% include "main/navi.html" %}
@@ -59,7 +74,12 @@
                     <!-- Submit Button-->
                     <button class="btn btn-primary text-uppercase disabled" id="submitButton" type="submit">Send
                     </button>
-                    <div class="gx-4" id="b_list">123123121323
+                    <div class="gx-4" id="b_list">
+                        <table class="tb">
+                            <td class="b_no">번호</td>
+                            <td class="b_text">내용</td>
+                            <td class="b_writer">작성자</td>
+                        </table>
 
 
                     </div>
