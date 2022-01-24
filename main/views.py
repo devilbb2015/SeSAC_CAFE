@@ -39,10 +39,21 @@ def index(request):
 
     return render(request, 'main/index.html', context)
 
-# def footer(request):
-#     template = loader.get_template('/main/footer.html')
-#
-#     return HttpResponse(template)
+def signin(request):
+
+    context = {
+
+    }
+
+    return render(request, 'main/signin.html', context)
+
+def board(request):
+
+    context = {
+
+    }
+
+    return render(request, 'main/board.html', context)
 
 def guCount(request):
     qs = CafeStatus.objects.all()

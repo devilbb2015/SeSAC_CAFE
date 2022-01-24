@@ -23,8 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', SeSAC_CAFE.views.start),
     path('main', include('main.urls')),
-
 ]
+
 
 if settings.DEBUG:
     import debug_toolbar
