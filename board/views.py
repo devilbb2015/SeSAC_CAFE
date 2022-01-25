@@ -24,6 +24,10 @@ def insert(request):
     print('content >> ', data.get('content'))
     print('writer >> ', data.get('writer'))
 
+    context = {
+        "list": data,
+    }
 
 
-    return render(request, 'board/insert.html')
+
+    return render(request, 'board/boardList.html', context)

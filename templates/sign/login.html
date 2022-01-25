@@ -22,11 +22,20 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
     $(function () {
-        $("#loginBtn").click(function () {
+        var error = {{ error|safe }}
+        var e = {{ e|safe }}
 
-        })
+        console.log("error" + error)
+        console.log("e" + e)
+        if (error != null ) {
+            alert("비밀번호가 틀렸습니다.")
+            location.href="/sign"
+        }
+        if (e != null) {
+            alert("이메일이 존재하지 않습니다.")
+            location.href="/sign"
+        }
     })
-
 
 </script>
 
@@ -67,7 +76,7 @@
                                     </form>
                                 </div>
                                 <div class="card-footer text-center py-3">
-                                    <div class="small"><a href="sign/register">Need an account? Sign up!</a></div>
+                                    <div class="small"><a href="register">Need an account? Sign up!</a></div>
                                 </div>
                             </div>
                         </div>

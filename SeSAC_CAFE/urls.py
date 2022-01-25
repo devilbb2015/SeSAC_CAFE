@@ -22,9 +22,9 @@ from SeSAC_CAFE import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', SeSAC_CAFE.views.start),
-    path('sign', include('sign.urls')),
-    path('board', include('board.urls')),
-    path('main', include('main.urls')),
+    path('sign/', include('sign.urls')),
+    path('board/', include('board.urls')),
+    path('main/', include('main.urls')),
 ]
 
 
