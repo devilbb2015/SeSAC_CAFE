@@ -21,5 +21,6 @@ import board.views
 ## http://127.0.0.1:8000/board
 urlpatterns = [
     path('', board.views.boardList, name='board'),
+    path('/insert', board.views.insert, name='insert'),
 
 ]

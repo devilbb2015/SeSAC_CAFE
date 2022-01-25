@@ -20,7 +20,9 @@ import sign.views
 
 ## http://127.0.0.1:8000/sign
 urlpatterns = [
-    path('', sign.views.signin, name='signin'),
+    path('', sign.views.login, name='login'),
+    path('/register', sign.views.register, name='register'),
+    path('/login2', sign.views.login2, name='login2'),
 
 
 
