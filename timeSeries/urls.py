@@ -14,22 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+import timeSeries.views
 
-import main.views
+## http://127.0.0.1:8000/timeSeries
 
-## http://127.0.0.1:8000/main/
 urlpatterns = [
-    path('', main.views.index, name='index'),
-    path('guCount', main.views.guCount, name='guCount'),
-    path('logout', main.views.logout, name='logout'),
-    path('chart', main.views.chart, name='chart'),
-    path('api/chart1/data', main.views.chartData.as_view(), name="chartData"),
+    path('', timeSeries.views.chart, name='timeSeries'),
 
-    # path('/result', main.views.result_detail, name='result_detail'),
+
 ]
-
-
-
-

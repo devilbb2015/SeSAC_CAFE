@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'sign.apps.SignConfig',
     'board.apps.BoardConfig',
+    'timeSeries.apps.TimeseriesConfig',
 ]
 
 MIDDLEWARE = [
@@ -76,6 +77,8 @@ TEMPLATES = [
         },
     },
 ]
+
+LOGIN_URL = '/sign'
 
 WSGI_APPLICATION = 'SeSAC_CAFE.wsgi.application'
 

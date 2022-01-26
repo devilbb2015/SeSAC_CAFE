@@ -1,10 +1,12 @@
 import csv
 
+from django.contrib import messages
+from django.contrib.auth import logout
 from django.db import connection
 from django.http import JsonResponse, HttpResponse
 from django.template import loader
 from django.views.generic import View
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import folium
 
 from rest_framework.response import Response
@@ -14,6 +16,11 @@ from rest_framework.views import APIView
 # Create your views here.
 from main.models import CafeCount, CafeStatus
 
+
+def logout(request):
+    request.session.clear()
+    messages.info(request, '로그아웃 되었습니다!')
+    return redirect('/main')
 
 def index(request):
     qs = CafeStatus.objects.all()
@@ -76,7 +83,6 @@ def chart2(request):
     print(result)
     return render(request, "main/chart2.html", {'list': result})
 
-
 def chart(request):
     try:
         queryset = CafeCount.objects.all()
@@ -86,7 +92,7 @@ def chart(request):
         for list in datas:
             result.append(list)
 
-        print(result)
+        # print(result)
 
     except:
         print("쿼리 실행 실패")

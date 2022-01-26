@@ -1,3 +1,6 @@
+from django.contrib import messages
+from django.contrib.auth import login as auth_login, authenticate
+from django.contrib.auth.forms import AuthenticationForm
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 
@@ -7,13 +10,14 @@ from sign.models import CafeUser
 
 ## 로그인 페이지
 def login(request):
-
-
-    context = {
-
-    }
-
-    return render(request, 'sign/login.html', context)
+    if request.user.is_authenticated:
+        print("loggined")
+        return redirect('/main')
+    else :
+        print("not loggined")
+        context = {
+        }
+        return render(request, 'sign/login.html', context)
 
 ## 로그인
 def login2(request):
@@ -22,12 +26,15 @@ def login2(request):
     email = data.get('inputEmail')
     pw = data.get('inputPassword')
     qs = CafeUser.objects.filter(email=email)
-    print("qsssssssssss >> ", qs)
-    # print(qs[0].email)
+    # print("qsssssssssss >> ", qs)
+    # user = CafeUser.objects.filter(email=email, password=pw)
+
     try :
         ## 비밀번호가 맞으면 로그인 성공 후 메인화면
         if qs[0].password == pw :
-            print("222222222")
+            user_id = qs[0].name
+            request.session['user'] = user_id
+            print(">>>>>>>>>>",request.session['user'])
             return redirect('/main')
         ## qs 가 값이 없으면 error 를 넘기고 로그인 페이지로...
         elif qs is None:
@@ -40,13 +47,13 @@ def login2(request):
         else:
             print("3333333333")
             context = {
-                "error" : pw
+                "error" : "error"
             }
             return render(request, 'sign/login.html', context)
     ## IndexError 발생시 error 메시지를 넘기고 로그인 페이지로...
-    except IndexError as e:
+    except :
         context = {
-            "e" : e,
+            "e" : "eee",
         }
         print("1111111111")
         return render(request, 'sign/login.html', context)

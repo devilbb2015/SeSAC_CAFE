@@ -24,6 +24,7 @@ urlpatterns = [
     path('', SeSAC_CAFE.views.start),
     path('sign/', include('sign.urls')),
     path('board/', include('board.urls')),
+    path('timeSeries/', include('timeSeries.urls')),
     path('main/', include('main.urls')),
 ]
 
