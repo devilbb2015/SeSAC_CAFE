@@ -1,6 +1,4 @@
 import pandas as pd
-import Functions
-
 
 # 웹 서비스 구현을 위한 db저장 전용 데이터셋 생성
 
@@ -10,6 +8,9 @@ import Functions
 # df_area = pd.read_csv('./after/area_data.csv', encoding='cp949')
 # df_culture = pd.read_csv('./after/culture_data.csv', encoding='cp949')
 # df_main = pd.read_csv('./after/main_data.csv.csv', encoding='cp949')
+from main import Functions
+from main.models import CafeStatus
+
 
 def near_cafe_db(long, lat):
     # near_cafe
@@ -251,3 +252,19 @@ def info(val):
         기타 = 1
 
     return 저가, 고가, 기타
+
+def input_date(year):
+    qs = CafeStatus.objects.all()
+    datas = qs.values()
+
+    df = pd.DataFrame(datas)
+
+    date = str(year)+'0000'
+
+    df2 = df[(df['open_date'] < int(date)) & (df['close_date'] > int(date))]
+    result = []
+    print(len(df2))
+    for lat, lng in zip(df2['lat'], df2['lng']):
+        result.append([lat, lng])
+
+    return result

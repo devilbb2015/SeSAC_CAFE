@@ -1,9 +1,9 @@
 from django.shortcuts import render
 
 # Create your views here.
-def chart(request):
+def predict(request):
     context = {
 
     }
 
-    return render(request, 'timeSeries/chart.html', context)
+    return render(request, 'timeSeries/predict.html', context)

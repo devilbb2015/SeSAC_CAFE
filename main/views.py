@@ -1,4 +1,5 @@
 import csv
+import pandas as pd
 
 from django.contrib import messages
 from django.contrib.auth import logout
@@ -14,6 +15,7 @@ from rest_framework.views import APIView
 
 
 # Create your views here.
+from main.Web_data import input_date
 from main.models import CafeCount, CafeStatus
 
 
@@ -87,18 +89,77 @@ def chart(request):
     try:
         queryset = CafeCount.objects.all()
         datas = queryset.values()
-
         result = []
         for list in datas:
             result.append(list)
-
-        # print(result)
 
     except:
         print("쿼리 실행 실패")
 
     return render(request, 'main/chart.html', {"list": result})
 
+def map(request):
+    qs = CafeStatus.objects.all()
+    datas = qs.values()
+    lat = []
+    lng = []
+    gu = []
+    cafe_name = []
+
+    for i in datas:
+        if i['business'] == 1:
+            lat.append(i['lat'])
+            lng.append(i['lng'])
+            gu.append(i['gu'])
+            cafe_name.append(i['cafe_name'])
+
+    context = {
+        "gu": gu,
+        "lat": lat,
+        "lng": lng,
+        "cafe_name": cafe_name,
+    }
+    return render(request, 'main/map.html', context)
+
+def map2(request):
+    data = request.POST.get('year')
+    print(data)
+
+    if data == "2022":
+        qs = CafeStatus.objects.all()
+        datas = qs.values()
+        lat = []
+        lng = []
+
+        for i in datas:
+            if i['business'] == 1:
+                lat.append(i['lat'])
+                lng.append(i['lng'])
+
+        count = len(lat)
+        print(count)
+        context = {
+            "lat": lat,
+            "lng": lng,
+            "count": count,
+        }
+        return render(request, 'main/map.html', context)
+
+    else:
+        result = input_date(data)
+        lat = []
+        lng = []
+        for i in result:
+            lat.append(i[0])
+            lng.append(i[1])
+        count = len(lat)
+        context = {
+            "lat": lat,
+            "lng": lng,
+            "count": count,
+        }
+
+        return render(request, 'main/map.html', context)
 
 class chartData(APIView):
     authentication_classes = []
@@ -120,11 +181,5 @@ class chartData(APIView):
         }
         return Response(data)
 
-
-
-#
-# def result_detail(request):
-#     context = {}
-#     return render(request, 'chartapp/chart.html', context)
 
 

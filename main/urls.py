@@ -25,6 +25,8 @@ urlpatterns = [
     path('guCount', main.views.guCount, name='guCount'),
     path('logout', main.views.logout, name='logout'),
     path('chart', main.views.chart, name='chart'),
+    path('map', main.views.map, name='map'),
+    path('map2', main.views.map2, name='map2'),
     path('api/chart1/data', main.views.chartData.as_view(), name="chartData"),
 
     # path('/result', main.views.result_detail, name='result_detail'),

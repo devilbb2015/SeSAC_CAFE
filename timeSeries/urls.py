@@ -20,7 +20,7 @@ import timeSeries.views
 ## http://127.0.0.1:8000/timeSeries
 
 urlpatterns = [
-    path('', timeSeries.views.chart, name='timeSeries'),
+    path('', timeSeries.views.predict, name='timeSeries'),
 
 
 ]

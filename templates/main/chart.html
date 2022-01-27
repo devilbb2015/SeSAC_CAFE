@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-{%  load static %}
+{% load static %}
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -29,100 +29,100 @@
 {#<script src="{% static 'chartjs-plugin-doughnutlabel.js' %}"></script>#}
 {#<script src="{% static  'chartjs-plugin-datalabels.min.js'%}"></script>#}
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        var data = {{ list|safe }}
-            console.log(data)
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    var data = {{ list|safe }}
+        console.log(data)
 
 
-        var year = [];
-        var in_count = [];
-        var out_count = [];
-        var in_open = [];
-        var month = [];
+    var year = [];
+    var in_count = [];
+    var out_count = [];
+    var in_open = [];
+    var month = [];
 
-        for (var i = 0; i < data.length; i++) {
-            {#console.log(data[i][0]);#}
-            in_count.push(data[i].in_count);
-            out_count.push(data[i].out_count);
-            in_open.push(data[i].sum_count);
-            month.push(data[i].status_month);
-            year.push(String(data[i].status_year));
+    for (var i = 0; i < data.length; i++) {
+        {#console.log(data[i][0]);#}
+        in_count.push(data[i].in_count);
+        out_count.push(data[i].out_count);
+        in_open.push(data[i].sum_count);
+        month.push(data[i].status_month);
+        year.push(String(data[i].status_year));
+    }
+
+    {#console.log(in_count)#}
+    {#console.log(out_count)#}
+    {#console.log(in_open)#}
+    {#console.log(month)#}
+    {#console.log(year)#}
+    google.charts.load('current', {'packages': ['bar']});
+    google.charts.setOnLoadCallback(drawChart);
+
+
+    function drawChart() {
+        var datas = [['Year', 'Open', 'Close']]
+        for (var j = 0; j < year.length; j++) {
+            datas.push([year[j], in_count[j], out_count[j]])
         }
+        var data = google.visualization.arrayToDataTable(datas);
+        console.log(data)
 
-        {#console.log(in_count)#}
-        {#console.log(out_count)#}
-        {#console.log(in_open)#}
-        {#console.log(month)#}
-        {#console.log(year)#}
-        google.charts.load('current', {'packages': ['bar']});
-        google.charts.setOnLoadCallback(drawChart);
-
-
-        function drawChart() {
-            var datas = [['year', 'In_count', 'Out_count']]
-            for (var j = 0; j < year.length; j++) {
-                datas.push([year[j], in_count[j], out_count[j]])
+        var options = {
+            chart: {
+                title: 'Cafe open/close (Year)',
+                subtitle: '',
             }
-            var data = google.visualization.arrayToDataTable(datas);
-            console.log(data)
+        };
 
-            var options = {
-                chart: {
-                    title: 'Cafe Open Status',
-                    subtitle: '',
-                }
-            };
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
 
-            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
 
-            chart.draw(data, google.charts.Bar.convertOptions(options));
+    google.charts.load('current', {'packages': ['line']});
+    google.charts.setOnLoadCallback(drawChart2);
+
+    function drawChart2() {
+        var datas = [['Year', 'Open', 'Close']]
+        for (var j = 0; j < year.length; j++) {
+            datas.push([year[j], in_count[j], out_count[j]])
         }
+        var data = google.visualization.arrayToDataTable(datas);
+        console.log(data)
 
-        google.charts.load('current', {'packages': ['line']});
-        google.charts.setOnLoadCallback(drawChart2);
-
-        function drawChart2() {
-            var datas = [['year', 'In_count', 'Out_count']]
-            for (var j = 0; j < year.length; j++) {
-                datas.push([year[j], in_count[j], out_count[j]])
+        var options = {
+            chart: {
+                title: 'Cafe open/close (Year)',
+                subtitle: '',
             }
-            var data = google.visualization.arrayToDataTable(datas);
-            console.log(data)
+        };
 
-            var options = {
-                chart: {
-                    title: 'Cafe Open Status',
-                    subtitle: '',
-                }
-            };
+        var chart2 = new google.charts.Line(document.getElementById('columnchart_material2'));
 
-            var chart2 = new google.charts.Line(document.getElementById('columnchart_material2'));
+        chart2.draw(data, google.charts.Line.convertOptions(options));
+    }
 
-            chart2.draw(data, google.charts.Line.convertOptions(options));
+    google.charts.load('current', {'packages': ['table']});
+    google.charts.setOnLoadCallback(drawTable);
+
+    function drawTable() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', '년도');
+        data.addColumn('number', '창업한 수');
+        data.addColumn('number', '폐업한 수');
+        datas = []
+
+        for (var j = 0; j < year.length; j++) {
+            datas.push([year[j], in_count[j], out_count[j]])
         }
+        console.log(datas)
+        data.addRows(datas)
 
-        google.charts.load('current', {'packages': ['table']});
-        google.charts.setOnLoadCallback(drawTable);
+        var table = new google.visualization.Table(document.getElementById('table_div'));
 
-        function drawTable() {
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Year');
-            data.addColumn('number', 'Open');
-            data.addColumn('number', 'Close');
-            datas = []
-
-            for (var j = 0; j < year.length; j++) {
-                datas.push([year[j], in_count[j], out_count[j]])
-            }
-            console.log(datas)
-            data.addRows(datas)
-
-            var table = new google.visualization.Table(document.getElementById('table_div'));
-
-            table.draw(data, {showRowNumber: true, width: 200, height: '100%'});
-        }
-    </script>
+        table.draw(data, {showRowNumber: false, width: 200, height: '100%'});
+    }
+</script>
 </head>
 <body>
 <!-- Navigation-->
@@ -136,22 +136,19 @@
 
 <!-- Main Content-->
 <div class="container">
-    <div class="row equal-cols">
-        <div class="col-sm-12">
-{#            <div id="columnchart_material"></div>#}
-{#            <div id="columnchart_material2"></div>#}
-{#            <div id="table_div" style="width: 100%; height: 100%;"></div>#}
-
-        <table>
-            <tr class="col-md-12">
-                <td class="col-md-8" id="columnchart_material"></td>
-                <td class="col-md-2" rowspan="2" id="table_div"></td>
-            </tr>
-            <tr class="col-md-12">
-                <td class="col-md-8" id="columnchart_material2"></td>
-            </tr>
-        </table>
-            </div>
+    <div class="row">
+        <div class="col-12 col-md-12 col-sm-12">
+            <table>
+                <tr class="col-10 col-md-10 col-sm-10">
+                    <td class="col-8 col-md-8 col-sm-8" id="columnchart_material"
+                        style="width: 800px; height: 300px"></td>
+                    <td class="col-2 col-md-2 col-sm-2" rowspan="2" id="table_div"></td>
+                </tr>
+                <tr class="col-10 col-md-10 col-sm-10">
+                    <td class="col-8 col-md-8 col-sm-8" id="columnchart_material2" style="width: 800px; height: 300px"></td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 
